@@ -1,0 +1,45 @@
+{
+  "name": "@baidu/linkify-urls-in-rich-text",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "babel src/index.ts -o dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bob2622/url-text-to-link.git"
+  },
+  "author": "pisces2622",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bob2622/url-text-to-link/issues"
+  },
+  "homepage": "https://github.com/Bob2622/url-text-to-link#readme",
+  "dependencies": {
+    "core-js": "^3.24.1",
+    "create-html-element": "^4.0.1",
+    "get-urls": "^11.0.0",
+    "re2": "^1.17.7",
+    "typescript": "^4.7.4",
+    "url-regex-safe": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/jest": "^28.1.7",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
+    "eslint": "^8.22.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.8.3",
+    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-promise": "^6.0.0",
+    "jest": "^28.1.3",
+    "jest-environment-jsdom": "^28.1.3"
+  }
+}
