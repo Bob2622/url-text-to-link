@@ -19,6 +19,5 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm install --registry http://registry.npm.taobao.org
       - run: npm run build
+      - run: npm config set _authToken=${{secrets.NPM_TOKEN}}
       - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
