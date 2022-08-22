@@ -8,6 +8,12 @@ interface Option {
   value?: string | ((href: string) => string)
 }
 
+/**
+ * 文本中包含类超链接的字段，格式化为链接(富文本)
+ * @param string rich text string to be formated
+ * @param options formated option
+ * @returns formated string
+ */
 function linkifyUrlsInRichText (string: string, options?: Option) {
   options = {
     attributes: {},
@@ -28,22 +34,30 @@ function linkifyUrlsInRichText (string: string, options?: Option) {
 
 export default linkifyUrlsInRichText
 
-// Capture the whole URL in group 1 to keep `String#split()` support
+/**
+ * 获取 url 正则表达式
+ * @returns url 正则表达式
+ */
 const urlRegex = () => {
   return urlRegexSafe({
     returnString: true
   })
-  // /((?<!\+)https?:\/\/(?:www\.)?(?:[-\w.]+?[.@][a-zA-Z\d]{2,}|localhost)(?:[-\w.:%+~#*$!?&/=@]*?(?:,(?!\s))*?)*)/g
-  // const linkRegexp = '<a[^>]*>[^<][^\\][^a][^>]*</a>)'
-  // const regexp = new RegExp('(<a[^>]*>[^<]*</a>)|www.baidu.com', 'g')
-  // return new RegExp(`${linkRegexp}|${urlRegexpStr}`, 'g')
 }
 
+/**
+ * 获取超链正则表达式
+ * @returns 超链正则表达式
+ */
 const linkRegex = () => {
   return '(<a[^>]*>[^<][^\\][^a][^>]*</a>)'
 }
 
-// Get `<a>` element as string
+/**
+ * 类超链文本转换为超链
+ * @param 超链地址
+ * @param a 标签指定属性
+ * @returns 可点击超链纯文本
+ */
 const linkify = (href:string, options: Option) => createHtmlElement({
   name: 'a',
   attributes: {
@@ -57,15 +71,23 @@ const linkify = (href:string, options: Option) => createHtmlElement({
     : (typeof options.value === 'function' ? options.value(href) : options.value)
 })
 
-// Get DOM node from HTML
+/**
+ * Get DOM node from HTML
+ * @param html 富文本纯文本
+ * @returns DOM node
+ */
 const domify = (html: string) => document.createRange().createContextualFragment(html)
 
+/**
+ * 文本中包含类超链接的字段，格式化为链接(富文本), 返回纯文本形式
+ * @param string 包含类超链接纯文本
+ * @param options 超链格式化指定属性
+ * @returns 纯文本
+ */
 const getAsString = (string: string, options: Option) => string.replace(
   new RegExp(`${linkRegex()}|${urlRegex()}`, 'g'),
   (match: string) => {
     if (match.match(new RegExp(linkRegex()))) {
-      // const hrefMatchs = match.match(/href="([^"]*)"/)
-      // const href = hrefMatchs ? hrefMatchs[1] : ''
       return match
     } else {
       return linkify(match, options)
@@ -73,6 +95,12 @@ const getAsString = (string: string, options: Option) => string.replace(
   }
 )
 
+/**
+ * 文本中包含类超链接的字段，格式化为链接(富文本), 返回 dom 结构
+ * @param string 包含类超链接纯文本
+ * @param options 超链格式化指定属性
+ * @returns dom node
+ */
 const getAsDocumentFragment = (string: string, options: Option) => {
   const fragment = document.createDocumentFragment()
   for (const [index, text] of Object.entries(string.split(urlRegex()))) {
@@ -82,6 +110,5 @@ const getAsDocumentFragment = (string: string, options: Option) => {
       fragment.append(text)
     }
   }
-
   return fragment
 }
