@@ -15,7 +15,6 @@ function linkifyUrlsInRichText (string: string, options?: Option) {
     ...options
   }
 
-  console.log('options', options)
   if (options.type === 'string') {
     return getAsString(string, options)
   }
