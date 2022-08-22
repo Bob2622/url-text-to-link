@@ -1,6 +1,6 @@
 {
   "name": "linkify-urls-in-rich-text",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/Bob2622/url-text-to-link.git"
   },
-  "author": "pisces2622",
+  "author": "zhangbobo",
+  "email": "276267769@qq.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Bob2622/url-text-to-link/issues"
