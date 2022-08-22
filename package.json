@@ -1,6 +1,6 @@
 {
-  "name": "@baidu/linkify-urls-in-rich-text",
-  "version": "1.0.1",
+  "name": "linkify-urls-in-rich-text",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
