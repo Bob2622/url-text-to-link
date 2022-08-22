@@ -62,7 +62,9 @@ const linkify = (href:string, options: Option) => createHtmlElement({
   name: 'a',
   attributes: {
     ...options.attributes,
-    href
+    href: (href.startsWith('//') || href.startsWith('http://') || href.startsWith('https://'))
+      ? href
+      : ('//' + href)
   },
   // 由于依赖的类型系统有错误，只能兼容处理
   text: (typeof options.value === 'undefined' ? href : undefined) as undefined,
