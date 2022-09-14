@@ -15,7 +15,7 @@ console.log(text)
 ```
 
 # 功能
-参加 [单侧case](https://github.com/Bob2622/url-text-to-link/blob/master/test/index.test.ts) 
+参考 [单侧case](https://github.com/Bob2622/url-text-to-link/blob/master/test/index.test.ts) 
 
 # 参考项目
 https://github.com/sindresorhus/get-urls

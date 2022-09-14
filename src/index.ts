@@ -45,11 +45,19 @@ const urlRegex = () => {
 }
 
 /**
+ * 获取 tag 属性正则表达式
+ * @returns tag 属性正则表达式
+ */
+const tagAttrRegex = () => {
+  return '(<[^>]+>)'
+}
+
+/**
  * 获取超链正则表达式
  * @returns 超链正则表达式
  */
-const tagRegex = () => {
-  return '(<[^>]+>([^<]*</[^>]+>)?)'
+const linkRegex = () => {
+  return '(<a[^>]*>[^<]*</a>)'
 }
 
 /**
@@ -87,9 +95,9 @@ const domify = (html: string) => document.createRange().createContextualFragment
  * @returns 纯文本
  */
 const getAsString = (string: string, options: Option) => string.replace(
-  new RegExp(`${tagRegex()}|${urlRegex()}`, 'g'),
+  new RegExp(`${linkRegex()}|${tagAttrRegex()}|${urlRegex()}`, 'g'),
   (match: string) => {
-    if (match.match(new RegExp(tagRegex()))) {
+    if (match.match(new RegExp(tagAttrRegex())) || match.match(new RegExp(linkRegex()))) {
       return match
     } else {
       return linkify(match, options)
