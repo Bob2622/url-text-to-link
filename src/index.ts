@@ -48,8 +48,8 @@ const urlRegex = () => {
  * 获取超链正则表达式
  * @returns 超链正则表达式
  */
-const linkRegex = () => {
-  return '(<a[^>]*>[^<][^\\][^a][^>]*</a>)'
+const tagRegex = () => {
+  return '(<[^>]+>([^<]*</[^>]+>)?)'
 }
 
 /**
@@ -87,9 +87,9 @@ const domify = (html: string) => document.createRange().createContextualFragment
  * @returns 纯文本
  */
 const getAsString = (string: string, options: Option) => string.replace(
-  new RegExp(`${linkRegex()}|${urlRegex()}`, 'g'),
+  new RegExp(`${tagRegex()}|${urlRegex()}`, 'g'),
   (match: string) => {
-    if (match.match(new RegExp(linkRegex()))) {
+    if (match.match(new RegExp(tagRegex()))) {
       return match
     } else {
       return linkify(match, options)
