@@ -1,3 +1,11 @@
+/*
+ * @Author       : zhangbobo01 zhangbobo01@baidu.com
+ * @Date         : 2022-09-14 13:17:05
+ * @LastEditors  : zhangbobo01 zhangbobo01@baidu.com
+ * @LastEditTime : 2022-12-07 12:24:56
+ * @FilePath     : /url-text-to-link/src/index.ts
+ * @Description  : 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import createHtmlElement from 'create-html-element'
 import { HTMLAttributes } from 'stringify-attributes'
 import urlRegexSafe from 'url-regex-safe'
@@ -39,9 +47,13 @@ export default linkifyUrlsInRichText
  * @returns url 正则表达式
  */
 const urlRegex = () => {
-  return urlRegexSafe({
-    returnString: true
+  let urlRegexp = urlRegexSafe({
+    returnString: true,
+    trailingPeriod: true
   })
+  urlRegexp = urlRegexp.slice(0, urlRegexp.length - 12)
+  urlRegexp += '[^\\s"\\)\'<]*)?'
+  return urlRegexp
 }
 
 /**
@@ -97,7 +109,10 @@ const domify = (html: string) => document.createRange().createContextualFragment
 const getAsString = (string: string, options: Option) => string.replace(
   new RegExp(`${linkRegex()}|${tagAttrRegex()}|${urlRegex()}`, 'g'),
   (match: string) => {
-    if (match.match(new RegExp(tagAttrRegex())) || match.match(new RegExp(linkRegex()))) {
+    if (
+      match.match(new RegExp(`^${tagAttrRegex()}$`)) ||
+      match.match(new RegExp(`^${linkRegex()}$`))
+    ) {
       return match
     } else {
       return linkify(match, options)

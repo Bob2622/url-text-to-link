@@ -10,6 +10,16 @@ test('after format, text without link should has link', () => {
   `))).toBe(clearLineChart(`
     hello <a href="//www.baidu.com">www.baidu.com</a> world`
   ))
+
+  expect(UrlToLink(clearLineChart(`
+    <p>https://www.baidu.com/a/b?viewId=61375&sort=sequence&order=desc</p>
+  `), { attributes: { target: '_blank' } })).toBe(clearLineChart(`
+    <p>
+      <a target="_blank" href="https://www.baidu.com/a/b?viewId=61375&amp;sort=sequence&amp;order=desc">
+        https://www.baidu.com/a/b?viewId=61375&amp;sort=sequence&amp;order=desc
+      </a>
+    </p>
+  `))
 })
 
 test('param attributes test', () => {
@@ -20,7 +30,7 @@ test('param attributes test', () => {
   `))
 })
 
-test('link in tag attr shuould not be formatted', () => {
+test('link in tag attr should not be formatted', () => {
   expect(UrlToLink(clearLineChart(`
     hello <a href="http://www.baidu.com">www.baidu.com</a> world
   `))).toBe(clearLineChart(`
